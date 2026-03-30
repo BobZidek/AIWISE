@@ -397,48 +397,35 @@ p  { font-size: 1rem; color: var(--text-2); line-height: 1.8; }
 
 .play-btn {
     position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .75rem;
-    background: rgba(6,9,15,.55);
-    backdrop-filter: blur(6px);
-    border: none;
-    cursor: pointer;
-    transition: background var(--t) var(--ease);
-}
-.play-btn:hover { background: rgba(6,9,15,.7); }
-.play-btn.hidden { display: none; }
-
-.play-icon {
-    width: 68px; height: 68px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-end));
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    color: #0a0700;
-    padding-left: .2rem;
-    box-shadow: 0 0 32px var(--gold-glow);
-    transition: transform var(--t) var(--ease);
-}
-.play-btn:hover .play-icon { transform: scale(1.1); }
-
-.play-label {
-    font-size: .88rem;
-    font-weight: 500;
-    color: rgba(255,255,255,.85);
+    cursor: pointer;
+    transition: all var(--t) var(--ease);
+    padding: 0;
 }
 
-.video-caption {
-    text-align: center;
-    font-size: .82rem;
-    color: var(--text-3);
-    margin-top: .85rem;
+.play-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: var(--cyan);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--cyan-glow);
 }
+
+
+.play-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
 
 /* ============================================================
    STATS BAR

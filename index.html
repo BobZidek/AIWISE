@@ -87,12 +87,11 @@
             <!-- Right: video -->
             <div class="hero-video-wrap">
                 <div class="video-frame" id="videoFrame">
-                    <video id="heroVideo" preload="metadata" playsinline muted loop>
+                    <video id="heroVideo" autoplay muted playsinline loop preload="auto">
                         <source src="Video_Production_Specification_Document.mp4" type="video/mp4">
                     </video>
-                    <button class="play-btn" id="playBtn" aria-label="Přehrát video se zvukem">
-                        <span class="play-icon">🔊</span>
-                        <span class="play-label">Klikni pro zvuk</span>
+                    <button class="play-btn" id="playBtn" aria-label="Toggle video sound">
+                        <span class="play-icon">🔇</span>
                     </button>
                 </div>
             </div>

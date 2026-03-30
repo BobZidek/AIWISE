@@ -117,38 +117,15 @@
 (function initVideo() {
     const video  = document.getElementById('heroVideo');
     const playBtn = document.getElementById('playBtn');
-    if (!video || !playBtn) return;
+    const icon = playBtn ? playBtn.querySelector('.play-icon') : null;
+    if (!video || !playBtn || !icon) return;
 
-    // Autoplay when hero is in view
-    const obsVideo = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                video.play().catch(() => {
-                    // Autoplay blocked by browser, user must click
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-    obsVideo.observe(video);
-
-    // Click to unmute and show controls
+    // Toggle mute on click
     playBtn.addEventListener('click', () => {
-        video.muted = false;
-        playBtn.classList.add('hidden');
-        video.controls = true;
-        video.play();
-    });
-
-    // Show play button again when video pauses
-    video.addEventListener('pause', () => {
-        if (!video.ended) playBtn.classList.remove('hidden');
-    });
-
-    // When video ends, hide controls and show button again
-    video.addEventListener('ended', () => {
-        playBtn.classList.remove('hidden');
-        video.controls = false;
-        video.currentTime = 0;
+        video.muted = !video.muted;
+        // Update icon: 🔇 for muted, 🔊 for unmuted
+        icon.textContent = video.muted ? '🔇' : '🔊';
+        video.play().catch(() => {});
     });
 })();
 
