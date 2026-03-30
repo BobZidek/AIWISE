@@ -3,1213 +3,439 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIWISE - Jak české firmy ušetřují 15+ hodin/týden</title>
-    
-    <!-- Meta Tags for SEO -->
-    <meta name="description" content="Nauč se AI automatizace a konkurenční výhody. 7 lekcí, 6 hodin videa, lifetime přístup. 30 dní vrácení peněz.">
-    <meta name="keywords" content="AI masterclass, automace, ChatGPT, Zapier, české SMB">
-    <meta name="og:title" content="AIWISE - Jak české firmy ušetřují 15+ hodin/týden">
-    <meta name="og:description" content="Kompletní AI masterclass pro české podnikatele. Bez technických znalostí.">
-    <meta name="og:image" content="https://aiwise.cz/og-image.png">
-    
-    <!-- Fonts -->
+    <title>AIWISE Masterclass – Ušetři 15+ hodin týdně s AI</title>
+    <meta name="description" content="7 lekcí, 6+ hodin videa, lifetime přístup. Nauč se AI automatizace a ušetři 15+ hodin týdně. Pro české podnikatele bez technických znalostí.">
+    <meta property="og:title" content="AIWISE Masterclass – Ušetři 15+ hodin týdně s AI">
+    <meta property="og:description" content="Kompletní AI masterclass pro české podnikatele. Bez technických znalostí. 30 dní vrácení peněz.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Three.js for 3D objects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <!-- Stripe -->
-    <script src="https://js.stripe.com/v3/"></script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        :root {
-            --primary-blue: #1e3a5f;
-            --primary-dark: #0f1f3c;
-            --accent-gold: #f59e0b;
-            --accent-light: #fbbf24;
-            --white: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-light: #666666;
-            --bg-light: #f9fafb;
-            --border-light: #e5e7eb;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            background: var(--white);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Typography */
-        h1 {
-            font-family: 'Sora', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-family: 'Sora', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--primary-dark);
-            margin-bottom: 1.5rem;
-        }
-
-        h3 {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        .text-large {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            color: var(--text-dark);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-gold));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 800;
-            font-size: 0.8rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-gold);
-        }
-
-        .nav-cta {
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
-            color: var(--primary-dark);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(30px); }
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            color: white;
-            margin-bottom: 1.5rem;
-            animation: slideInLeft 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            animation: slideInLeft 0.8s ease 0.2s forwards;
-            opacity: 0;
-        }
-
-        .hero-benefits {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            animation: slideInLeft 0.8s ease 0.4s forwards;
-            opacity: 0;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .benefit-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-dark);
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            animation: slideInLeft 0.8s ease 0.6s forwards;
-            opacity: 0;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
-            color: var(--primary-dark);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
-            display: inline-block;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(245, 158, 11, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 1rem 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .hero-video {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            animation: slideInRight 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .hero-video video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .video-play {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .video-play:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .video-play::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 24px solid var(--primary-dark);
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            margin-left: 4px;
-        }
-
-        /* Urgency Banner */
-        .urgency-banner {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            animation: slideDown 0.6s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .urgency-timer {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.3rem;
-            color: var(--accent-light);
-        }
-
-        /* Problem Section */
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-dark {
-            background: var(--bg-light);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .problem-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-gold);
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .problem-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .problem-card h3 {
-            margin-bottom: 0.75rem;
-            color: var(--primary-dark);
-        }
-
-        /* Transformation Section */
-        .transformation {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .transformation-grid {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .transformation-item {
-            text-align: center;
-        }
-
-        .transformation-item h3 {
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-        }
-
-        .transformation-item.before {
-            background: #fee2e2;
-            padding: 2rem;
-            border-radius: 12px;
-        }
-
-        .transformation-item.after {
-            background: #dcfce7;
-            padding: 2rem;
-            border-radius: 12px;
-        }
-
-        .transformation-arrow {
-            font-size: 2rem;
-            color: var(--accent-gold);
-            font-weight: bold;
-        }
-
-        /* Benefits Section */
-        .benefits-section {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .benefit-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .benefit-box:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--accent-gold);
-            transform: translateY(-4px);
-        }
-
-        .benefit-number {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            border-radius: 12px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-box h3 {
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-box p {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
-        }
-
-        .faq-item {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            background: #f3f4f6;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 1.1rem;
-        }
-
-        .faq-toggle {
-            width: 24px;
-            height: 24px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-dark);
-            font-weight: bold;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            margin-top: 1rem;
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-
-        /* Guarantee Section */
-        .guarantee-section {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-light) 100%);
-            color: var(--primary-dark);
-            padding: 60px 0;
-            border-radius: 16px;
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        .guarantee-section h2 {
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-
-        .guarantee-section p {
-            color: rgba(30, 58, 95, 0.8);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
-            color: var(--primary-dark);
-            padding: 1.25rem 3rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
-        }
-
-        .cta-button:active {
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
-
-            .transformation-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .transformation-arrow {
-                transform: rotate(90deg);
-                margin: 1rem 0;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .container {
-                padding: 0 1.5rem;
-            }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding: 60px 0;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-        }
-
-        /* 3D Canvas */
-        #canvas-3d {
-            width: 100%;
-            height: 400px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* Loading animation */
-        .spinner {
-            border: 4px solid rgba(245, 158, 11, 0.3);
-            border-top: 4px solid var(--accent-gold);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">AI</div>
-                AIWISE
+
+    <!-- ░░ TOP BAR (sticky wrapper) ░░ -->
+    <div class="top-bar-wrapper">
+        <div class="urgency-bar" id="urgencyBar">
+            <div class="container">
+                <span class="urgency-icon">🔥</span>
+                <span class="urgency-text">30% SLEVA VYPRŠÍ ZA:</span>
+                <span class="countdown" id="countdown">23:59:59</span>
+                <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="urgency-btn">Koupit nyní →</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#benefits">Výhody</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#guarantee">Záruka</a></li>
-            </ul>
-            <a href="#cta" class="nav-cta">Koupit Nyní</a>
         </div>
-    </nav>
 
-    <!-- Urgency Banner -->
-    <div class="urgency-banner">
-        ⏰ 30% SLEVA POUZE DO ZÍTŘKA 23:59 | Zbývá: <span class="urgency-timer" id="countdown">23:59:59</span>
-    </div>
+        <nav id="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <span class="logo-mark">AI</span><span class="logo-text">WISE</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#co-dostanes">Co dostaneš</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#zaruka">Záruka</a></li>
+                </ul>
+                <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="nav-cta">Koupit · 999 CZK</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Otevřít menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div><!-- /top-bar-wrapper -->
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
+
+    <!-- ░░ HERO ░░ -->
+    <section class="hero" id="hero">
+        <div class="hero-glow-1"></div>
+        <div class="hero-glow-2"></div>
+
+        <div class="container hero-container">
+
+            <!-- Left: text + CTA -->
             <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Jak české firmy ušetřují 15+ hodin/týden (a ty nevíš jak)</h1>
-                    <p class="hero-subtitle">7 lekcí • 6 hodin videí • Lifetime přístup • Bez technických znalostí</p>
-                    
-                    <div class="hero-benefits">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">✓</div>
-                            <span>Nauč se ChatGPT, Zapier, AI automatizace za 7 dní</span>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">✓</div>
-                            <span>Ušetřete 15+ hodin týdně (okamžitě aplikovatelné)</span>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">✓</div>
-                            <span>Konkurenti nebude stačit - ty budeš mít výhodu</span>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">✓</div>
-                            <span>30 dní vrácení peněz - bez otázek</span>
-                        </div>
-                    </div>
+                <div class="hero-badge">🇨🇿 Pro české podnikatele</div>
 
-                    <div class="hero-cta">
-                        <button class="btn-primary" onclick="scrollToCheckout()">Koupit Nyní - 999 CZK</button>
-                        <button class="btn-secondary" onclick="playVideo()">▶ Koukat Video</button>
-                    </div>
-                </div>
+                <h1 class="hero-title">
+                    Jak firmy ušetřují<br>
+                    <span class="accent-cyan">15+ hodin týdně</span><br>
+                    díky AI
+                </h1>
 
-                <div class="hero-video">
-                    <video id="heroVideo" style="display: none;" controls>
-                        <source src="https://example.com/aiwise-hero.mp4" type="video/mp4">
-                    </video>
-                    <img id="videoThumbnail" src="https://via.placeholder.com/500x300?text=AIWISE+Masterclass" alt="AIWISE" style="width: 100%; height: auto; border-radius: 16px;">
-                    <div class="video-play" id="playBtn"></div>
+                <p class="hero-subtitle">
+                    Lifetime přístup &middot; 30-denní plán &middot; Pracovní sešity<br>
+                    Bez technických znalostí. Aplikovatelné od zítřka.
+                </p>
+
+                <ul class="hero-checklist">
+                    <li><span class="check">✓</span> Nauč se ChatGPT, Zapier a AI automatizace za 7 dní</li>
+                    <li><span class="check">✓</span> Ušetři 15+ hodin týdně — okamžitě aplikovatelné</li>
+                    <li><span class="check">✓</span> Buď měsíce napřed před konkurencí</li>
+                    <li><span class="check">✓</span> 30 dní vrácení peněz — bez otázek</li>
+                </ul>
+
+                <div class="hero-cta-group">
+                    <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="btn-cta pulse">
+                        <span class="btn-main-text">Koupit Nyní — 999 CZK</span>
+                        <span class="btn-sub-text">místo 1 429 CZK · ušetříš 430 CZK</span>
+                    </a>
+                    <p class="cta-reassurance">🔒 Bezpečná platba Stripe &nbsp;·&nbsp; Okamžitý přístup &nbsp;·&nbsp; 30-denní záruka</p>
                 </div>
             </div>
+
+            <!-- Right: video -->
+            <div class="hero-video-wrap">
+                <div class="video-frame" id="videoFrame">
+                    <video id="heroVideo" preload="metadata" playsinline muted loop>
+                        <source src="Video_Production_Specification_Document.mp4" type="video/mp4">
+                    </video>
+                    <button class="play-btn" id="playBtn" aria-label="Přehrát video se zvukem">
+                        <span class="play-icon">🔊</span>
+                        <span class="play-label">Klikni pro zvuk</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Problems Section -->
-    <section class="section section-dark">
+
+    <!-- ░░ STATS BAR ░░ -->
+    <div class="stats-bar">
+        <div class="container stats-row">
+            <div class="stat">
+                <div class="stat-value">
+                    <span class="stat-num" data-target="15">0</span>
+                    <span class="stat-suf">+ h</span>
+                </div>
+                <span class="stat-label">ušetřeno týdně</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat">
+                <div class="stat-value">
+                    <span class="stat-num">3</span>
+                    <span class="stat-suf">000%</span>
+                </div>
+                <span class="stat-label">ROI za měsíc</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat">
+                <div class="stat-value">
+                    <span class="stat-num">100%</span>
+                </div>
+                <span class="stat-label">satisfaction rate</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat">
+                <div class="stat-value">
+                    <span class="stat-num">30</span>
+                    <span class="stat-suf"> dní</span>
+                </div>
+                <span class="stat-label">záruka vrácení</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ░░ PROBLEMS ░░ -->
+    <section class="section problems-section" id="problemy">
         <div class="container">
-            <div class="section-title">
-                <h2>Tvoje situace vypadá takto?</h2>
-                <p class="text-large">Víš, že AI existuje, ale nevíš jak ji aplikovat na svůj byznys</p>
+            <div class="section-header reveal">
+                <p class="eyebrow">Znáš tenhle pocit?</p>
+                <h2>Víš, že AI existuje.<br>Nevíš, jak ji využít ve svém byznysu.</h2>
             </div>
 
             <div class="problems-grid">
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
-                    <h3>Informace všude, nic konkrétního</h3>
-                    <p>Koukal jsi na YouTube videa a pořád nevíš kde začít. Máš pocit že tomu nerozumíš.</p>
+                    <div class="problem-emoji">😤</div>
+                    <h3>Informace všude, výsledky nikde</h3>
+                    <p>Koukals na YouTube videa, čítal články — pořád nevíš kde začít. Přijde ti to moc složité.</p>
                 </div>
-
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
-                    <h3>Konkurenti tě předběhají</h3>
-                    <p>Konkurenti už AI používají a zvyšují si zisk. Ty čekaš a ztrácíš konkurenční výhodu.</p>
+                    <div class="problem-emoji">📉</div>
+                    <h3>Konkurenti tě předbíhají</h3>
+                    <p>Firmy kolem tebe AI už používají. Automatizují, šetří peníze. Ty stále čekáš.</p>
                 </div>
-
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
-                    <h3>Máš málo času, málo peněz</h3>
-                    <p>Pracuješ 60+ hodin/týden. Koupit další kurz bez výsledků?</p>
+                    <div class="problem-emoji">⏰</div>
+                    <h3>Pracuješ 60+ hodin týdně</h3>
+                    <p>Stále je co dělat, nikdy není dost času. Strategické věci pořád odkládáš na jindy.</p>
                 </div>
-
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
+                    <div class="problem-emoji">😰</div>
                     <h3>Bojíš se, že je to moc technické</h3>
-                    <p>Nejsi IT expert. Boji se, že nebudeš rozumět kódu, termínům, komplexnosti.</p>
+                    <p>Nejsi IT expert. Kód, API, automatizace — zní to jako cizí jazyk pro tebe.</p>
                 </div>
-
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
-                    <h3>Nevíš jestli ti to vrátí peníze</h3>
-                    <p>Kolik kurzů jsi koupit které ti nic nedaly? Bojíš se zbytečně utratit.</p>
+                    <div class="problem-emoji">💸</div>
+                    <h3>Nevíš jestli se to vyplatí</h3>
+                    <p>Koupil jsi kurzy, které ti nic nedaly. Bojíš se utratit za další zklamání.</p>
                 </div>
-
                 <div class="problem-card reveal">
-                    <div class="problem-icon">❌</div>
-                    <h3>Nikdo ti neřekne co FUNGUJE</h3>
-                    <p>Všichni prodávají něco, nikdo neříká jak to skutečně aplikovat na tvůj byznys.</p>
+                    <div class="problem-emoji">🎯</div>
+                    <h3>Nikdo ti neřekne co funguje</h3>
+                    <p>Všichni prodávají obecné věci. Nikdo neřeší specificky tvůj byznys.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Transformation Section -->
-    <section class="transformation">
+
+    <!-- ░░ TRANSFORMATION ░░ -->
+    <section class="section transformation-section">
         <div class="container">
-            <div class="section-title">
-                <h2>To jsem já. Tady je jak to vyřešme:</h2>
+            <div class="section-header reveal">
+                <p class="eyebrow">Tvoje transformace</p>
+                <h2>Co se změní po 7 lekcích</h2>
             </div>
 
-            <div class="transformation-grid">
-                <div class="transformation-item before">
-                    <h3>❌ PŘED</h3>
-                    <p><strong>Vidíš AI jako magii</strong><br>Nevíš jak to funguje, je to pro "tebe moc" technické</p>
-                </div>
-
-                <div class="transformation-arrow">→</div>
-
-                <div class="transformation-item after">
-                    <h3>✅ PO</h3>
-                    <p><strong>Ovládáš AI nástrojů</strong><br>Znáš jak je aplikovat přímo na svůj byznys</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 3rem;">
-                <div class="transformation-grid">
-                    <div class="transformation-item before">
-                        <h3>❌ PŘED</h3>
-                        <p><strong>Pracuješ 60+ hodin/týden</strong><br>Stále něco zbývá, nikdy nemáš čas na strategii</p>
+            <div class="transformations">
+                <div class="transformation reveal">
+                    <div class="t-before">
+                        <div class="t-label t-label-before">PŘED</div>
+                        <p>AI vidíš jako magii — nevíš jak to funguje, je to "pro ostatní"</p>
                     </div>
-
-                    <div class="transformation-arrow">→</div>
-
-                    <div class="transformation-item after">
-                        <h3>✅ PO</h3>
-                        <p><strong>Pracuješ 40 hodin/týden</strong><br>Máš čas na co opravdu chceš dělat, zisk roste</p>
+                    <div class="t-arrow">→</div>
+                    <div class="t-after">
+                        <div class="t-label t-label-after">PO</div>
+                        <p>Ovládáš AI nástroje a víš jak je <strong>aplikovat přímo na svůj byznys</strong></p>
                     </div>
                 </div>
-            </div>
 
-            <div style="margin-top: 3rem;">
-                <div class="transformation-grid">
-                    <div class="transformation-item before">
-                        <h3>❌ PŘED</h3>
-                        <p><strong>Konkurenti tě předběhají</strong><br>Oni jsou měsíce napřed, ty pozoruj jejich úspěchy</p>
+                <div class="transformation reveal">
+                    <div class="t-before">
+                        <div class="t-label t-label-before">PŘED</div>
+                        <p>Pracuješ 60+ hodin týdně. Stále nestíháš. Strategie čeká.</p>
                     </div>
+                    <div class="t-arrow">→</div>
+                    <div class="t-after">
+                        <div class="t-label t-label-after">PO</div>
+                        <p>Pracuješ 40 hodin týdně. Máš čas na <strong>to, co opravdu chceš dělat.</strong></p>
+                    </div>
+                </div>
 
-                    <div class="transformation-arrow">→</div>
-
-                    <div class="transformation-item after">
-                        <h3>✅ PO</h3>
-                        <p><strong>Ty máš výhodu</strong><br>Ostatní tě kopírují, ty jsi měsíce napřed</p>
+                <div class="transformation reveal">
+                    <div class="t-before">
+                        <div class="t-label t-label-before">PŘED</div>
+                        <p>Konkurenti jsou měsíce napřed. Ty sleduješ jejich úspěchy.</p>
+                    </div>
+                    <div class="t-arrow">→</div>
+                    <div class="t-after">
+                        <div class="t-label t-label-after">PO</div>
+                        <p>Ostatní tě kopírují. <strong>Ty máš konkurenční výhodu.</strong></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section" id="benefits">
+
+    <!-- ░░ CURRICULUM / BENEFITS ░░ -->
+    <section class="section curriculum-section" id="co-dostanes">
         <div class="container">
-            <div class="section-title" style="margin-bottom: 4rem;">
-                <h2 style="color: white;">Co přesně dostaneš?</h2>
+            <div class="section-header reveal">
+                <p class="eyebrow">Obsah kurzu</p>
+                <h2>Co přesně dostaneš?</h2>
             </div>
 
-            <div class="benefits-grid">
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">📌</div>
-                    <h3>7 Modulů</h3>
-                    <p>Každý fokusovaný na praktickou implementaci. Od ChatGPT k Automatizaci.</p>
+            <div class="curriculum-grid">
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">⚡</div>
+                    <div>
+                        <h3>Okamžité Výsledky</h3>
+                        <p>Implementuj hned. První automatizace běží už zítra. Okamžitě vidíš úspory času.</p>
+                    </div>
                 </div>
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">🎯</div>
+                    <div>
+                        <h3>Ušetři 15+ Hodin/Týden</h3>
+                        <p>Konkrétní techniky, které sami používají úspěšné firmy. Žádná teorie — jen praxe.</p>
+                    </div>
+                </div>
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">♾️</div>
+                    <div>
+                        <h3>Lifetime Přístup</h3>
+                        <p>Koupíš jednou, máš navždy. Včetně všech budoucích aktualizací a nových lekcí.</p>
+                    </div>
+                </div>
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">📚</div>
+                    <div>
+                        <h3>Pracovní Sešity</h3>
+                        <p>Šablony, prompty, playboky. Nemusíš vymýšlet od nuly — jenom uprav na svůj byznys.</p>
+                    </div>
+                </div>
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">🗓️</div>
+                    <div>
+                        <h3>30-denní Akční Plán</h3>
+                        <p>Přesný roadmap. Víš co dělat každý den. Bez nejistoty, bez zbytečného čekání.</p>
+                    </div>
+                </div>
+                <div class="curriculum-card reveal">
+                    <div class="curriculum-icon">🚀</div>
+                    <div>
+                        <h3>Bonus: AI Tools Ranking</h3>
+                        <p>Které nástroje kupovat, kterým se vyhnout. Ušetří ti roky pokusů a chyb.</p>
+                    </div>
+                </div>
+            </div>
 
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">🎬</div>
-                    <h3>6+ Hodin Videí</h3>
-                    <p>Profesionální kvalita. 45-60 minut per modul. Můžeš koukat v lajnu.</p>
+            <!-- ROI Box -->
+            <div class="roi-box reveal">
+                <div class="roi-label">💡 Návratnost investice</div>
+                <h3>ROI za první měsíc?</h3>
+                <div class="roi-math">
+                    <div class="roi-row">
+                        <span class="roi-item">Kurz stojí</span>
+                        <span class="roi-value">999 CZK = ~2 hodiny práce</span>
+                    </div>
+                    <div class="roi-row">
+                        <span class="roi-item">Průměrná úspora</span>
+                        <span class="roi-value">15 h/týden × 4 = 60 h/měsíc</span>
+                    </div>
+                    <div class="roi-row">
+                        <span class="roi-item">Při 500 CZK/h</span>
+                        <span class="roi-value">= 30 000 CZK/měsíc ušetřeno</span>
+                    </div>
+                    <div class="roi-row roi-highlight-row">
+                        <span class="roi-item">Tvůj ROI</span>
+                        <span class="roi-highlight">3 000% za první měsíc</span>
+                    </div>
                 </div>
+            </div>
 
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">📚</div>
-                    <h3>Lifetime Přístup</h3>
-                    <p>Koupeš si jednou, máš navždy. Včetně budoucích updatů obsahu.</p>
-                </div>
-
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">💬</div>
-                    <h3>Pracovní Sešity</h3>
-                    <p>Šablony, prompty, playboky. Nemusíš vymýšlet, jenom modifikuj.</p>
-                </div>
-
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">🎯</div>
-                    <h3>30denní Plán</h3>
-                    <p>Přesný roadmap. Vím co dělat hned. Bez nejistoty, bez zbytečného čekání.</p>
-                </div>
-
-                <div class="benefit-box reveal">
-                    <div class="benefit-number">🚀</div>
-                    <h3>Bonus: AI Tools Ranking</h3>
-                    <p>Které nástrojů koupit, kterých se vyhnout. Ušetří ti roky pokusů a chyb.</p>
-                </div>
+            <!-- Mid-page CTA -->
+            <div class="mid-cta reveal">
+                <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="btn-cta">
+                    <span class="btn-main-text">Začít šetřit čas — 999 CZK</span>
+                    <span class="btn-sub-text">Okamžitý přístup · 30-denní záruka</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="faq-section" id="faq">
+
+    <!-- ░░ FAQ ░░ -->
+    <section class="section faq-section" id="faq">
         <div class="container">
-            <div class="section-title">
+            <div class="section-header reveal">
+                <p class="eyebrow">Otázky a odpovědi</p>
                 <h2>Časté otázky</h2>
-                <p class="text-large">Všechno co tě zajímá</p>
             </div>
 
-            <div class="faq-grid">
+            <div class="faq-list">
                 <div class="faq-item reveal">
-                    <div class="faq-question">
+                    <button class="faq-question">
                         <span>Nejsem technický typ. Budu to rozumět?</span>
-                        <div class="faq-toggle">+</div>
-                    </div>
+                        <span class="faq-icon">+</span>
+                    </button>
                     <div class="faq-answer">
-                        <p>Přesně proto jsem kurz vytvořil. Pracuji s podnikateli jako ty - bez IT vzdělání. Každá lekce vysvětluje: CO to je (jednoduše), PROČ to potřebuješ (konkrétní benefit), JAK to používáš (step-by-step, bez kódu).</p>
-                        <p style="margin-top: 1rem;">Nikde v kurzu není programování. Jenom praktické věci, které dnes můžeš používat.</p>
+                        <p>Přesně proto jsem kurz vytvořil. Pracuji s podnikateli jako ty — bez IT vzdělání. Každá lekce vysvětluje: CO to je (jednoduše), PROČ to potřebuješ (konkrétní benefit), JAK to používáš (krok za krokem, bez kódu).</p>
+                        <p>V kurzu není žádné programování. Jenom praktické věci, které dnes můžeš začít používat.</p>
                     </div>
                 </div>
 
-                <div class="faq-item reveal">
-                    <div class="faq-question">
-                        <span>Kolik času bude trvat kurz?</span>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>7 lekcí = celkem 6 hodin videí. V průměru: 50 minut na modul. Tempo: 1 modul každé 3-4 dny. Celkem: 1 měsíc na KOMPLETNÍ kurz.</p>
-                        <p style="margin-top: 1rem;">Ale není to lineární - můžeš koukat 15 minut v kávě. Lifetime přístup znamená, že koukaš když chceš.</p>
-                    </div>
-                </div>
+
 
                 <div class="faq-item reveal">
-                    <div class="faq-question">
+                    <button class="faq-question">
                         <span>Jaká je vaše záruka?</span>
-                        <div class="faq-toggle">+</div>
-                    </div>
+                        <span class="faq-icon">+</span>
+                    </button>
                     <div class="faq-answer">
-                        <p>30 DNÍ VRÁCENÍ PENĚZ - bez otázek. Koupeš si kurz. Sleduješ prvních 7 dní. Pokud si myslíš: "To pro mě není" → vrátíš si peníze.</p>
-                        <p style="margin-top: 1rem;">Vrácení je AUTOMATICKÉ - žádné emaily, žádné drama. Ale realita: nikomu se to nevrátilo. Spousta lidí řekla: "Měl jsem koupit dřív".</p>
+                        <p>30 DNÍ VRÁCENÍ PENĚZ — bez otázek. Koupíš si kurz. Sleduješ prvních 7 dní. Pokud si říkáš "to pro mě není" → vrátíme ti peníze. Automaticky. Žádné emaily, žádné drama.</p>
                     </div>
                 </div>
 
                 <div class="faq-item reveal">
-                    <div class="faq-question">
-                        <span>Bude to mít ROI? Vrátim si peníze?</span>
-                        <div class="faq-toggle">+</div>
-                    </div>
+                    <button class="faq-question">
+                        <span>Vrátí se mi investice?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
                     <div class="faq-answer">
-                        <p><strong>Matematika:</strong> Kurz stojí 999 CZK. Průměrná úspora: 15 hodin/týden. Tvůj čas stojí: 500-1000 CZK/hodina. Výpočet: 15 × 500 = 7,500 CZK/měsíc ušetřeno.</p>
-                        <p style="margin-top: 1rem;">Vrácení investice: 999 CZK = cena 2 hodin práce. ROI: 700% za měsíc.</p>
-                        <p style="margin-top: 1rem;">Studenti co koukal všech 7 lekcí = 95% mělo alespoň 5 hodin/týden ušetřeno.</p>
+                        <p><strong>Matematika:</strong> Kurz stojí 999 CZK. Průměrná úspora: 15 hodin/týden. Tvůj čas stojí: 500–1000 CZK/hodina. Výpočet: 15 × 500 = 7 500 CZK/měsíc ušetřeno.</p>
+                        <p>Vrácení investice: 999 CZK = cena 2 hodin práce. ROI: přes 700% za měsíc při konzervativním odhadu.</p>
                     </div>
                 </div>
 
                 <div class="faq-item reveal">
-                    <div class="faq-question">
-                        <span>V čem je toto jiné než ostatní AI kurzy?</span>
-                        <div class="faq-toggle">+</div>
-                    </div>
+                    <button class="faq-question">
+                        <span>V čem je to jiné než ostatní AI kurzy?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
                     <div class="faq-answer">
-                        <p><strong>Ostatní kurzů:</strong> 70% teoretické, 30% praktické. Americké. Tech knowledge potřebný. Bez akčních plánů.</p>
-                        <p style="margin-top: 1rem;"><strong>AIWISE:</strong> 80% praktické, 20% teoretické. ČESKÉ specifické. Bez tech znalostí. 30-denní akční plán. LIFETIME updates. Pracovní sešity. Guaranteed výsledky.</p>
-                        <p style="margin-top: 1rem;">Koupeš si ne KURZ, koupeš si IMPLEMENTACI. To je rozdíl.</p>
+                        <p><strong>Ostatní kurzy:</strong> 70% teorie, 30% praxe. Americké příklady. Potřebuješ technické znalosti. Bez akčního plánu.</p>
+                        <p><strong>AIWISE:</strong> 80% praxe, 20% teorie. České příklady. Bez tech znalostí. 30-denní akční plán. Lifetime aktualizace. Pracovní sešity. Garantované výsledky.</p>
+                        <p>Nekupuješ KURZ — kupuješ IMPLEMENTACI. To je rozdíl.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Guarantee Section -->
-    <section>
+
+    <!-- ░░ GUARANTEE ░░ -->
+    <section class="guarantee-section" id="zaruka">
         <div class="container">
-            <div class="guarantee-section reveal">
+            <div class="guarantee-box reveal">
+                <div class="guarantee-icon">🛡️</div>
                 <h2>30-Denní Záruka Vrácení Peněz</h2>
-                <p>Koupeš si kurz. Sleduješ prvních 7 dní. Pokud se ti nelíbí → vrátíme ti všechno. Bez otázek. Bez mailu. Bez drahy.</p>
-                <p style="margin-top: 1.5rem; font-weight: 600;">Ale realita: Nikomu se to nevrátilo. Všichni řekli: "Měl jsem koupit dřív"</p>
+                <p>Koupíš si kurz. Sleduješ prvních 7 dní. Pokud se ti nelíbí → vrátíme ti vše zpět. Bez otázek. Bez emailů. Bez zdržování.</p>
+                <p class="guarantee-note">"Nikomu se to dosud nevrátilo. Všichni řekli: Měl jsem koupit dřív."</p>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA Section -->
-    <section class="cta-section" id="cta">
+
+    <!-- ░░ FINAL CTA ░░ -->
+    <section class="section final-cta-section" id="koupit">
         <div class="container">
-            <h2>Jsi připravený?</h2>
-            <p class="text-large" style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">Koupeš si kurz dnes. Implementuješ si zítřka. Konkurenti tě kopírují příští měsíc.</p>
-            <button class="cta-button" onclick="openCheckout()">Koupit Nyní - 999 CZK (místo 1,429 CZK)</button>
-            <p style="margin-top: 2rem; color: rgba(255, 255, 255, 0.7);">30 dní vrácení peněz • Lifetime přístup • Automatický přístup</p>
+            <div class="final-cta reveal">
+                <p class="eyebrow">Jsi připravený?</p>
+                <h2>Začni šetřit čas od zítřka</h2>
+                <p class="final-sub">Koupíš dnes. Implementuješ zítra. Konkurenti tě kopírují příští měsíc.</p>
+
+                <div class="price-display">
+                    <span class="price-old">1 429 CZK</span>
+                    <span class="price-current">999 CZK</span>
+                    <span class="price-badge">Ušetříš 430 CZK</span>
+                </div>
+
+                <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="btn-cta btn-cta-xl pulse">
+                    <span class="btn-main-text">Koupit AIWISE Masterclass →</span>
+                    <span class="btn-sub-text">Jednorázová platba · Lifetime přístup · 30-denní záruka</span>
+                </a>
+
+                <p class="security-note">🔒 Bezpečná platba přes Stripe &nbsp;·&nbsp; Okamžitý přístup po platbě</p>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
+
+    <!-- ░░ FOOTER ░░ -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 AIWISE. Všechna práva vyhrazena. | <a href="#" style="color: inherit;">Podmínky</a> | <a href="#" style="color: inherit;">Soukromí</a></p>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-mark">AI</span><span class="logo-text">WISE</span>
+            </div>
+            <p class="footer-copy">© 2026 AIWISE. Všechna práva vyhrazena.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Stripe Modal -->
-    <div id="checkoutModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center;">
-        <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 500px; width: 90%; position: relative;">
-            <button onclick="closeCheckout()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
-            
-            <h2 style="margin-bottom: 1rem;">Koupit AIWISE Masterclass</h2>
-            <p style="color: var(--text-light); margin-bottom: 2rem;">Cena: <strong>999 CZK</strong> (30% sleva)</p>
-            
-            <form id="payment-form">
-                <div id="card-element" style="border: 1px solid var(--border-light); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"></div>
-                <button type="submit" class="btn-primary" style="width: 100%; padding: 1rem;">Platit 999 CZK</button>
-            </form>
-            
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">Bezpečná platba Stripe. Vrácení peněz za 30 dní.</p>
-        </div>
+
+    <!-- ░░ MOBILE STICKY CTA ░░ -->
+    <div class="sticky-cta" id="stickyCta">
+        <a href="https://buy.stripe.com/5kQ3cwehu4D1gXH5K85EY00" class="sticky-cta-btn">
+            <span>Koupit · 999 CZK</span>
+            <span class="sticky-sub">30-denní záruka</span>
+        </a>
     </div>
 
-    <script>
-        // Countdown Timer
-        function updateCountdown() {
-            const now = new Date();
-            const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-            tomorrow.setHours(23, 59, 59);
-
-            const interval = setInterval(() => {
-                const current = new Date();
-                const diff = tomorrow - current;
-                
-                if (diff <= 0) {
-                    document.getElementById('countdown').textContent = '00:00:00';
-                    clearInterval(interval);
-                    return;
-                }
-
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
-        }
-
-        // Scroll Reveal Animation
-        const revealElements = document.querySelectorAll('.reveal');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        revealElements.forEach(el => observer.observe(el));
-
-        // FAQ Toggle
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
-        });
-
-        // Video Play
-        function playVideo() {
-            const video = document.getElementById('heroVideo');
-            const thumbnail = document.getElementById('videoThumbnail');
-            const playBtn = document.getElementById('playBtn');
-            
-            video.style.display = 'block';
-            thumbnail.style.display = 'none';
-            playBtn.style.display = 'none';
-            video.play();
-        }
-
-        // Scroll to Checkout
-        function scrollToCheckout() {
-            openCheckout();
-        }
-
-        // Stripe Checkout
-        const stripe = Stripe('pk_live_YOUR_STRIPE_KEY'); // Replace with your Stripe key
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-
-        function openCheckout() {
-            document.getElementById('checkoutModal').style.display = 'flex';
-            
-            if (!cardElement._parent) {
-                cardElement.mount('#card-element');
-            }
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkoutModal').style.display = 'none';
-        }
-
-        document.getElementById('payment-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Show loading
-            const btn = e.target.querySelector('button');
-            btn.disabled = true;
-            btn.innerHTML = '<div class="spinner"></div>';
-
-            try {
-                // Create token
-                const { token } = await stripe.createToken(cardElement);
-
-                if (token) {
-                    // Send token to your backend
-                    const response = await fetch('/process-payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            token: token.id,
-                            amount: 99900 // 999 CZK in cents
-                        })
-                    });
-
-                    const result = await response.json();
-
-                    if (result.success) {
-                        alert('Platba úspěšná! Brzy dostaneš přístup do kurzu.');
-                        closeCheckout();
-                    } else {
-                        alert('Chyba při platbě. Zkus znovu.');
-                    }
-                }
-            } catch (error) {
-                alert('Chyba: ' + error.message);
-            }
-
-            btn.disabled = false;
-            btn.innerHTML = 'Platit 999 CZK';
-        });
-
-        // Initialize
-        updateCountdown();
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
